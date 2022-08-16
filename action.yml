@@ -1,0 +1,46 @@
+name: Setup action for CI and CD workflows
+description: A setup action for CI and CD jobs in the P5-wrapper/react repo
+
+inputs:
+  token:
+    description: The github token to use for checking out the code
+    required: true
+
+runs:
+  using: "composite"
+
+  steps:
+    - uses: actions/checkout@v3
+      name: Checkout the latest code for the current PR
+      with:
+        token: ${{ inputs.token }}
+
+    - uses: actions/setup-node@v3
+      name: Setup node
+      with:
+        node-version: 16
+
+    - uses: pnpm/action-setup@v2
+      name: Install pnpm
+      id: pnpm-install
+      with:
+        version: 7
+        run_install: false
+
+    - name: Get pnpm store directory
+      id: pnpm-cache
+      run: |
+        echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+      shell: bash
+
+    - uses: actions/cache@v3
+      name: Setup pnpm cache
+      with:
+        path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+
+    - name: Install dependencies
+      run: pnpm install
+      shell: bash
