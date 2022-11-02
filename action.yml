@@ -44,3 +44,16 @@ runs:
     - name: Install dependencies
       run: pnpm install
       shell: bash
+
+    - name: Run format if the PR is from the Renovate bot
+      if: github.actor == 'renovate'
+      run: pnpm format
+      shell: bash
+
+    - name: Commit any formatting changes
+      if: github.actor == 'renovate'
+      uses: stefanzweifel/git-auto-commit-action@v4.1.2
+      with:
+        commit_message: Apply formatting updates
+        branch: ${{ github.head_ref }}
+        token: ${{ inputs.token }}
