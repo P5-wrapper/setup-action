@@ -46,7 +46,7 @@ runs:
       shell: bash
 
     - name: Run format if the PR is from the Renovate bot
-      if: github.actor == 'renovate'
+      if: github.actor == 'renovate[bot]'
       run: pnpm format
       shell: bash
 
