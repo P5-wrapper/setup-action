@@ -1,5 +1,5 @@
 name: Setup action for CI and CD workflows
-description: A setup action for CI and CD jobs in the P5-wrapper/react repo
+description: A setup action for CI and CD jobs in the P5-wrapper organisation
 
 inputs:
   token:
@@ -42,5 +42,5 @@ runs:
           ${{ runner.os }}-pnpm-store-
 
     - name: Install dependencies
-      run: pnpm install
+      run: pnpm install --frozen-lockfile
       shell: bash
