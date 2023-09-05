@@ -10,7 +10,7 @@ runs:
   using: "composite"
 
   steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       name: Checkout the latest code for the current PR
       with:
         token: ${{ inputs.token }}
