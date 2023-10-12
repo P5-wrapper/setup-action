@@ -1,19 +1,12 @@
 name: Setup action for CI and CD workflows
 description: A setup action for CI and CD jobs in the P5-wrapper organisation
 
-inputs:
-  token:
-    description: The github token to use for checking out the code
-    required: true
-
 runs:
   using: "composite"
 
   steps:
     - uses: actions/checkout@v4
       name: Checkout the latest code for the current PR
-      with:
-        token: ${{ inputs.token }}
 
     - uses: actions/setup-node@v3
       name: Setup node
