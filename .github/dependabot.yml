@@ -7,4 +7,5 @@ updates:
     reviewers:
       - "jamesrweb"
     labels:
+      - "actions"
       - "dependencies"
