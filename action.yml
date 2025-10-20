@@ -8,7 +8,7 @@ runs:
     - uses: actions/checkout@v5
       name: Checkout the latest code for the current PR
 
-    - uses: actions/setup-node@v5
+    - uses: actions/setup-node@v6
       name: Setup node
       with:
         node-version: latest
